@@ -25,6 +25,9 @@ const addOnForm = document.getElementById("addonForm");
 const addOnDrinkNameEl = document.getElementById("addonDrinkName");
 const skipAddOnBtn = document.getElementById("skipAddOnBtn");
 const closeAddOnBtn = document.getElementById("closeAddOnBtn");
+const floatingCartBar = document.getElementById("floatingCartBar");
+const floatingCartCountEl = document.getElementById("floatingCartCount");
+const floatingCartTotalEl = document.getElementById("floatingCartTotal");
 
 let pendingMenuItem = null;
 
@@ -46,6 +49,16 @@ const getTotals = () => {
   const total = subtotal + service;
 
   return { subtotal, service, total };
+};
+
+const getTotalItemCount = () => {
+  let count = 0;
+
+  for (const item of cart.values()) {
+    count += item.qty;
+  }
+
+  return count;
 };
 
 const buildOrderLines = () => {
@@ -131,6 +144,27 @@ const getSelectedAddOns = () => {
     .filter(Boolean);
 };
 
+const updateFloatingCartBar = (total) => {
+  if (!floatingCartBar || !floatingCartCountEl || !floatingCartTotalEl) {
+    return;
+  }
+
+  const itemCount = getTotalItemCount();
+
+  if (itemCount <= 0) {
+    floatingCartBar.classList.remove("show");
+    floatingCartBar.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("has-floating-cart");
+    return;
+  }
+
+  floatingCartCountEl.textContent = `${itemCount} item${itemCount === 1 ? "" : "s"}`;
+  floatingCartTotalEl.textContent = inr(total);
+  floatingCartBar.classList.add("show");
+  floatingCartBar.setAttribute("aria-hidden", "false");
+  document.body.classList.add("has-floating-cart");
+};
+
 const renderCart = () => {
   const { subtotal, service, total } = getTotals();
 
@@ -161,6 +195,7 @@ const renderCart = () => {
   subtotalEl.textContent = inr(subtotal);
   serviceFeeEl.textContent = inr(service);
   grandTotalEl.textContent = inr(total);
+  updateFloatingCartBar(total);
 
   syncHiddenOrderSummary();
 };
