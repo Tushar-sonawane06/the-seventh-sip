@@ -7,6 +7,12 @@ const ADD_ONS = [
   { id: "ice-cream", name: "Ice Cream", price: 15 },
   { id: "strong-coffee", name: "Strong Coffee", price: 9 },
 ];
+const ADD_ON_EXCLUDED_ITEMS = new Set([
+  "strawberry shake",
+  "lotus biscoff",
+  "mango shake",
+  "hot chocolate",
+]);
 const addOnLookup = new Map(ADD_ONS.map((addOn) => [addOn.id, addOn]));
 
 const cartItemsEl = document.getElementById("cartItems");
@@ -32,6 +38,15 @@ const floatingCartTotalEl = document.getElementById("floatingCartTotal");
 let pendingMenuItem = null;
 
 const inr = (value) => `Rs ${value}`;
+
+const normalizeMenuItemName = (name) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const isAddOnExcludedItem = (name) => ADD_ON_EXCLUDED_ITEMS.has(normalizeMenuItemName(name));
 
 const buildCartKey = (name, addOns) => {
   const addOnIds = addOns.map((addOn) => addOn.id).sort();
@@ -110,7 +125,7 @@ const updateQuantity = (itemKey, direction) => {
 };
 
 const openAddOnModal = (name, price) => {
-  if (!addOnModal || !addOnForm || !addOnDrinkNameEl) {
+  if (isAddOnExcludedItem(name) || !addOnModal || !addOnForm || !addOnDrinkNameEl) {
     addToCart(name, price);
     return;
   }
