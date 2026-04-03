@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Seventh Sip | Coffee in Campus</title>
+    <meta name="description"
+        content="Coffee Seventh Sip is a Gen Z coffee concept delivering to campus within 500-600 meters. Prices start at Rs 7 with fast online ordering." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Urbanist:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="bg-blur bg-blur-1" aria-hidden="true"></div>
+    <div class="bg-blur bg-blur-2" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a href="#home" class="brand" aria-label="Coffee Seventh Sip Home">
+                <img src="images/light_logo2.png" alt="The Seventh Sip logo" class="brand-logo" />
+                <span class="brand-copy">
+                    <strong>The Seventh Sip</strong>
+                    <small>Coffee in Campus</small>
+                </span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main Navigation">
+                <a href="#concept">Concept</a>
+                <a href="#menu">Menu</a>
+                <a href="#ordering">Order</a>
+                <a href="#campus">Campus Mode</a>
+            </nav>
+
+            <a class="btn btn-solid btn-small" href="#ordering">Order Now</a>
+        </div>
+    </header>
+
+    <main id="home">
+        <section class="hero section">
+            <div class="container hero-grid">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">Do Not Disturb. Pure Campus Energy.</p>
+                    <h1>
+                        Coffee made for Gen Z
+                        <span>starting at &#8377;37.</span>
+                    </h1>
+                    <p>
+                        Coffee Seventh Sip is built for students who live online, move fast, and want great taste
+                        without spending big. We deliver fresh coffee around nearby colleges.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-solid" href="#menu">Pick Your Sip</a>
+                        <a class="btn btn-ghost" href="#concept">See The Concept</a>
+                    </div>
+                    <ul class="metric-row" aria-label="Business Metrics">
+                        <li>
+                            <strong>500-600m</strong>
+                            <span>Campus radius</span>
+                        </li>
+                        <li>
+                            <strong>12-18 min</strong>
+                            <span>Delivery promise</span>
+                        </li>
+                        <li>
+                            <strong>100% Online</strong>
+                            <span>Order-first model</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- <aside class="hero-panel reveal" aria-label="Seventh Sip pricing ladder">
+                    <h2>Seventh Sip Ladder</h2>
+                    <p>Simple pricing rhythm for every mood and every budget.</p>
+                    <ul class="price-ladder">
+                        <li><span>Starter Shot</span><strong>&#8377;7</strong></li>
+                        <li><span>Classic Campus Cup</span><strong>&#8377;27</strong></li>
+                        <li><span>Late Night Brew</span><strong>&#8377;37</strong></li>
+                        <li><span>Power Sip</span><strong>&#8377;57</strong></li>
+                        <li><span>Creator Fuel</span><strong>&#8377;77+</strong></li>
+                    </ul>
+                    <div class="hero-note">Coffee in Campus is live and growing cup by cup.</div>
+                </aside> -->
+            </div>
+        </section>
+
+        <!-- <section id="concept" class="section concept">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">The Innovation</p>
+                    <h2>Coffee in Campus</h2>
+                    <p>
+                        Seventh Sip blends digital-first ordering with hyper-local service. We do not wait for students
+                        to come to us. We bring coffee directly to campus life.
+                    </p>
+                </div>
+
+                <div class="concept-cards">
+                    <article class="concept-card reveal">
+                        <h3>Digital Ordering</h3>
+                        <p>Fast order flow built for phone screens and short breaks between classes.</p>
+                    </article>
+                    <article class="concept-card reveal">
+                        <h3>Student-First Pricing</h3>
+                        <p>Menu starts at &#8377;7 and scales smartly with your add-ons and cup size.</p>
+                    </article>
+                    <article class="concept-card reveal">
+                        <h3>Campus Micro Delivery</h3>
+                        <p>Focused 500-600 meter radius means speed, freshness, and lower wait time.</p>
+                    </article>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="menu" class="section menu">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Menu Drop</p>
+                    <h2>Choose Your Sip</h2>
+                    <p>Add cups instantly and create your order before your next class starts.</p>
+                </div>
+
+                <div class="menu-grid">
+                    <article class="menu-card reveal" data-name="Starter Sip" data-price="7">
+                        <h3>Starter Sip</h3>
+                        <p>Mini espresso style hit for early lecture survival.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;7</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Campus Cold Coffee" data-price="27">
+                        <h3>Campus Cold Coffee</h3>
+                        <p>Chilled, creamy, and perfect for cafeteria hangs.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;27</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Mocha Notes" data-price="37">
+                        <h3>Mocha Notes</h3>
+                        <p>Chocolate + coffee combo for project grind sessions.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;37</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Power Cappuccino" data-price="57">
+                        <h3>Power Cappuccino</h3>
+                        <p>Rich foam and deeper roast for focus mode.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;57</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Brown Sugar Latte" data-price="67">
+                        <h3>Brown Sugar Latte</h3>
+                        <p>Soft sweetness layered with bold Seventh Sip espresso.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;67</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Creator Nitro" data-price="77">
+                        <h3>Creator Nitro</h3>
+                        <p>High-energy cold brew for reels, edits, and deadlines.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;77</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Seventh Signature" data-price="97">
+                        <h3>Seventh Signature</h3>
+                        <p>House special with creamy top and dark roast depth.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;97</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+
+                    <article class="menu-card reveal" data-name="Campus Crew Pack" data-price="157">
+                        <h3>Campus Crew Pack</h3>
+                        <p>Combo cups for group breaks and team project sprints.</p>
+                        <div class="menu-foot">
+                            <strong>&#8377;157</strong>
+                            <button class="add-btn" type="button">Add +</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="ordering" class="section ordering">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Online First</p>
+                    <h2>Place Campus Order</h2>
+                    <p>Build your order now. Share instantly through WhatsApp and get coffee on campus.</p>
+                </div>
+
+                <div class="ordering-layout">
+                    <aside class="cart-panel reveal" aria-live="polite">
+                        <h3>Live Cart</h3>
+                        <ul id="cartItems" class="cart-items">
+                            <li class="cart-empty">No cups yet. Tap Add + in the menu to start.</li>
+                        </ul>
+
+                        <div class="bill-panel">
+                            <div>
+                                <span>Subtotal</span>
+                                <strong id="subtotal">&#8377;0</strong>
+                            </div>
+                            <div>
+                                <span>Campus Service</span>
+                                <strong id="serviceFee">&#8377;0</strong>
+                            </div>
+                            <div class="bill-total">
+                                <span>Total</span>
+                                <strong id="grandTotal">&#8377;0</strong>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <form id="orderForm" class="order-form reveal">
+                        <label for="studentName">Full Name</label>
+                        <input id="studentName" name="studentName" type="text" placeholder="Enter your name" required />
+
+                        <label for="collegeName">College / Campus</label>
+                        <input id="collegeName" name="collegeName" type="text" placeholder="College name" required />
+
+                        <label for="dropSpot">Drop Spot</label>
+                        <select id="dropSpot" name="dropSpot" required>
+                            <option value="">Select pickup point</option>
+                            <option>Main Gate</option>
+                            <option>Library Block</option>
+                            <option>Boys Hostel</option>
+                            <option>Girls Hostel</option>
+                            <option>Sports Arena</option>
+                            <option>Auditorium</option>
+                        </select>
+
+                        <label for="phoneNumber">Phone Number</label>
+                        <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="10 digit mobile number"
+                            pattern="[0-9]{10}" required />
+
+                        <label for="orderNote">Special Notes</label>
+                        <textarea id="orderNote" name="orderNote" rows="3"
+                            placeholder="Sugar level, less ice, extra strong..."></textarea>
+
+                        <input id="orderSummary" name="orderSummary" type="hidden" />
+
+                        <button class="btn btn-solid" type="submit">Generate Quick Order</button>
+                        <p class="form-hint">
+                            Demo setup: this creates a ready message and opens WhatsApp. Replace the contact number in
+                            script.js before going live.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="campus" class="section campus">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Campus Mode</p>
+                    <h2>Made For Student Life</h2>
+                    <p>The Seventh Sip brand is tuned for reels, routines, and real-time delivery.</p>
+                </div>
+
+                <div class="campus-layout">
+                    <div class="campus-map reveal">
+                        <h3>Active Delivery Belt</h3>
+                        <p>We currently serve a 500-600 meter zone around nearby colleges for faster coffee drops.</p>
+                        <div class="zone-ring zone-ring-1"></div>
+                        <div class="zone-ring zone-ring-2"></div>
+                        <div class="zone-center">Seventh Sip Hub</div>
+                    </div>
+
+                    <div class="campus-points">
+                        <article class="point-card reveal">
+                            <h3>Fast Break Orders</h3>
+                            <p>Order between classes and track your expected drop in minutes.</p>
+                        </article>
+                        <article class="point-card reveal">
+                            <h3>Group Cup Bundles</h3>
+                            <p>Save more with combo packs for project groups and clubs.</p>
+                        </article>
+                        <article class="point-card reveal">
+                            <h3>Creator-Friendly Brand</h3>
+                            <p>Photogenic cup style and flavor names designed for social posting.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p><strong>Coffee Seventh Sip</strong> | Brewed for campus culture.</p>
+            <p>Copyright <span id="year"></span> Coffee Seventh Sip. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="orderModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <h3 id="modalTitle">Order Draft Ready</h3>
+            <p>Review this message and send it to Coffee Seventh Sip.</p>
+            <pre id="orderPreview"></pre>
+            <div class="modal-actions">
+                <a id="whatsappLink" class="btn btn-solid" href="#" target="_blank" rel="noopener noreferrer">Send on
+                    WhatsApp</a>
+                <button id="copyOrderBtn" class="btn btn-ghost" type="button">Copy Text</button>
+                <button id="closeModalBtn" class="btn btn-ghost" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
