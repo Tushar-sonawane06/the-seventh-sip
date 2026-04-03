@@ -46,6 +46,10 @@ const normalizeMenuItemName = (name) =>
     .trim();
 
 const isAddOnExcludedItem = (name) => ADD_ON_EXCLUDED_ITEMS.has(normalizeMenuItemName(name));
+const isPeriPeriFries = (name) => {
+  const normalizedName = normalizeMenuItemName(name);
+  return normalizedName === "peri peri fries" || normalizedName === "perri perri fries";
+};
 
 const setVisibleAddOns = (allowedAddOnIds) => {
   if (!addOnForm) {
@@ -295,6 +299,11 @@ const bindMenuButtons = () => {
       }
 
       if (card.closest("#friesMenu")) {
+        if (isPeriPeriFries(name)) {
+          openAddOnModal(name, price, ["extra-cheese"]);
+          return;
+        }
+
         addToCart(name, price);
         return;
       }
