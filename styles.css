@@ -184,12 +184,12 @@ body::after {
 }
 
 .hero-actions a[href="#bites"] {
-  background: #4dc14d;
+  background: rgba(77, 193, 77, 0.62);
   color: #081c15;
 }
 
 .hero-actions a[href="#fries"] {
-  background: #f3de2c;
+  background: #d9c829;
   color: #2f2500;
 }
 
@@ -418,6 +418,52 @@ p {
   padding: 0.45rem 0.8rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+#bitesMenu .menu-card {
+  background: linear-gradient(170deg, rgba(9, 42, 31, 0.94), rgba(6, 25, 19, 0.95));
+  border-color: rgba(77, 193, 77, 0.42);
+}
+
+#bitesMenu .menu-card::before {
+  background: radial-gradient(circle, rgba(77, 193, 77, 0.34) 0%, transparent 70%);
+}
+
+#bitesMenu .menu-foot strong {
+  color: #c1f9c1;
+}
+
+#bitesMenu .add-btn {
+  border-color: rgba(77, 193, 77, 0.5);
+  background: rgba(11, 48, 35, 0.8);
+  color: #d5f8d5;
+}
+
+#bitesMenu .menu-card:hover {
+  border-color: rgba(77, 193, 77, 0.62);
+}
+
+#friesMenu .menu-card {
+  background: linear-gradient(170deg, rgba(59, 45, 8, 0.94), rgba(29, 22, 4, 0.95));
+  border-color: rgba(243, 222, 44, 0.42);
+}
+
+#friesMenu .menu-card::before {
+  background: radial-gradient(circle, rgba(243, 222, 44, 0.32) 0%, transparent 72%);
+}
+
+#friesMenu .menu-foot strong {
+  color: #f9ea74;
+}
+
+#friesMenu .add-btn {
+  border-color: rgba(243, 222, 44, 0.54);
+  background: rgba(65, 50, 9, 0.78);
+  color: #fff6b8;
+}
+
+#friesMenu .menu-card:hover {
+  border-color: rgba(243, 222, 44, 0.68);
 }
 
 .ordering-layout {
