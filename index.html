@@ -312,6 +312,43 @@
         </div>
     </footer>
 
+    <div id="addonModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="addonModalTitle">
+        <div class="modal-content addon-modal-content">
+            <h3 id="addonModalTitle">Customize Your Cup</h3>
+            <p class="add-on-intro">Pick add-ons for <strong id="addonDrinkName">your drink</strong></p>
+
+            <form id="addonForm" class="add-on-form">
+                <div class="add-on-list">
+                    <label class="add-on-item" for="addonChocolateCrush">
+                        <input id="addonChocolateCrush" type="checkbox" name="addon" value="chocolate-crush" />
+                        <span>Chocolate Crush <em>+Rs 10</em></span>
+                    </label>
+
+                    <label class="add-on-item" for="addonWhippedCream">
+                        <input id="addonWhippedCream" type="checkbox" name="addon" value="whipped-cream" />
+                        <span>Whipped Cream <em>+Rs 12</em></span>
+                    </label>
+
+                    <label class="add-on-item" for="addonIceCream">
+                        <input id="addonIceCream" type="checkbox" name="addon" value="ice-cream" />
+                        <span>Ice Cream <em>+Rs 15</em></span>
+                    </label>
+
+                    <label class="add-on-item" for="addonStrongCoffee">
+                        <input id="addonStrongCoffee" type="checkbox" name="addon" value="strong-coffee" />
+                        <span>Strong Coffee <em>+Rs 9</em></span>
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-solid" type="submit">Add To Cart</button>
+                    <button id="skipAddOnBtn" class="btn btn-ghost" type="button">No Add-ons</button>
+                    <button id="closeAddOnBtn" class="btn btn-ghost" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="orderModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
         <div class="modal-content">
             <h3 id="modalTitle">Order Draft Ready</h3>

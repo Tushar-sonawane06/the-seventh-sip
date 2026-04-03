@@ -1,6 +1,13 @@
 const cart = new Map();
 const SERVICE_FEE = 7;
 const WHATSAPP_NUMBER = "+917276739369"; // Replace with your WhatsApp number in international format without '+' or dashes
+const ADD_ONS = [
+  { id: "chocolate-crush", name: "Chocolate Crush", price: 10 },
+  { id: "whipped-cream", name: "Whipped Cream", price: 12 },
+  { id: "ice-cream", name: "Ice Cream", price: 15 },
+  { id: "strong-coffee", name: "Strong Coffee", price: 9 },
+];
+const addOnLookup = new Map(ADD_ONS.map((addOn) => [addOn.id, addOn]));
 
 const cartItemsEl = document.getElementById("cartItems");
 const subtotalEl = document.getElementById("subtotal");
@@ -13,8 +20,20 @@ const modal = document.getElementById("orderModal");
 const whatsappLink = document.getElementById("whatsappLink");
 const copyOrderBtn = document.getElementById("copyOrderBtn");
 const closeModalBtn = document.getElementById("closeModalBtn");
+const addOnModal = document.getElementById("addonModal");
+const addOnForm = document.getElementById("addonForm");
+const addOnDrinkNameEl = document.getElementById("addonDrinkName");
+const skipAddOnBtn = document.getElementById("skipAddOnBtn");
+const closeAddOnBtn = document.getElementById("closeAddOnBtn");
+
+let pendingMenuItem = null;
 
 const inr = (value) => `Rs ${value}`;
+
+const buildCartKey = (name, addOns) => {
+  const addOnIds = addOns.map((addOn) => addOn.id).sort();
+  return `${name}__${addOnIds.join("+")}`;
+};
 
 const getTotals = () => {
   let subtotal = 0;
@@ -44,20 +63,25 @@ const syncHiddenOrderSummary = () => {
   orderSummaryInput.value = lines.join(" | ");
 };
 
-const addToCart = (name, price) => {
-  const existing = cart.get(name);
+const addToCart = (name, basePrice, addOns = []) => {
+  const itemKey = buildCartKey(name, addOns);
+  const addOnLabel = addOns.map((addOn) => addOn.name).join(", ");
+  const addOnTotal = addOns.reduce((total, addOn) => total + addOn.price, 0);
+  const price = basePrice + addOnTotal;
+  const displayName = addOnLabel ? `${name} + ${addOnLabel}` : name;
+  const existing = cart.get(itemKey);
 
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.set(name, { name, price, qty: 1 });
+    cart.set(itemKey, { key: itemKey, name: displayName, price, qty: 1 });
   }
 
   renderCart();
 };
 
-const updateQuantity = (name, direction) => {
-  const item = cart.get(name);
+const updateQuantity = (itemKey, direction) => {
+  const item = cart.get(itemKey);
 
   if (!item) {
     return;
@@ -66,10 +90,45 @@ const updateQuantity = (name, direction) => {
   item.qty += direction;
 
   if (item.qty <= 0) {
-    cart.delete(name);
+    cart.delete(itemKey);
   }
 
   renderCart();
+};
+
+const openAddOnModal = (name, price) => {
+  if (!addOnModal || !addOnForm || !addOnDrinkNameEl) {
+    addToCart(name, price);
+    return;
+  }
+
+  pendingMenuItem = { name, price };
+  addOnDrinkNameEl.textContent = name;
+  addOnForm.reset();
+  addOnModal.classList.add("show");
+  addOnModal.setAttribute("aria-hidden", "false");
+};
+
+const closeAddOnModal = () => {
+  if (!addOnModal || !addOnForm) {
+    pendingMenuItem = null;
+    return;
+  }
+
+  addOnModal.classList.remove("show");
+  addOnModal.setAttribute("aria-hidden", "true");
+  addOnForm.reset();
+  pendingMenuItem = null;
+};
+
+const getSelectedAddOns = () => {
+  if (!addOnForm) {
+    return [];
+  }
+
+  return Array.from(addOnForm.querySelectorAll('input[name="addon"]:checked'))
+    .map((input) => addOnLookup.get(input.value))
+    .filter(Boolean);
 };
 
 const renderCart = () => {
@@ -87,9 +146,9 @@ const renderCart = () => {
               <div class="cart-item-meta">${inr(item.price)} each</div>
             </div>
             <div class="qty-group" aria-label="Quantity controls for ${item.name}">
-              <button type="button" class="qty-btn" data-item="${item.name}" data-dir="-1">-</button>
+              <button type="button" class="qty-btn" data-item="${item.key}" data-dir="-1">-</button>
               <strong>${item.qty}</strong>
-              <button type="button" class="qty-btn" data-item="${item.name}" data-dir="1">+</button>
+              <button type="button" class="qty-btn" data-item="${item.key}" data-dir="1">+</button>
             </div>
           </li>
         `
@@ -134,12 +193,42 @@ const bindMenuButtons = () => {
         return;
       }
 
-      addToCart(name, price);
-      button.textContent = "Added";
-      setTimeout(() => {
-        button.textContent = "Add +";
-      }, 700);
+      openAddOnModal(name, price);
     });
+  });
+};
+
+const bindAddOnModal = () => {
+  if (!addOnForm || !skipAddOnBtn || !closeAddOnBtn || !addOnModal) {
+    return;
+  }
+
+  addOnForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!pendingMenuItem) {
+      return;
+    }
+
+    addToCart(pendingMenuItem.name, pendingMenuItem.price, getSelectedAddOns());
+    closeAddOnModal();
+  });
+
+  skipAddOnBtn.addEventListener("click", () => {
+    if (!pendingMenuItem) {
+      return;
+    }
+
+    addToCart(pendingMenuItem.name, pendingMenuItem.price);
+    closeAddOnModal();
+  });
+
+  closeAddOnBtn.addEventListener("click", closeAddOnModal);
+
+  addOnModal.addEventListener("click", (event) => {
+    if (event.target === addOnModal) {
+      closeAddOnModal();
+    }
   });
 };
 
@@ -274,6 +363,7 @@ const setFooterYear = () => {
 };
 
 bindMenuButtons();
+bindAddOnModal();
 bindCartControls();
 bindOrderSubmit();
 bindModalControls();

@@ -649,6 +649,60 @@ p {
   margin-bottom: 0.4rem;
 }
 
+.addon-modal-content {
+  width: min(560px, 100%);
+}
+
+.add-on-intro {
+  color: var(--text-soft);
+}
+
+.add-on-intro strong {
+  color: #f0bf8c;
+}
+
+.add-on-form {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.add-on-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.add-on-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgba(198, 148, 103, 0.3);
+  border-radius: 12px;
+  padding: 0.68rem 0.8rem;
+  background: rgba(12, 8, 6, 0.72);
+  cursor: pointer;
+}
+
+.add-on-item input {
+  margin: 0;
+  width: 1rem;
+  height: 1rem;
+  accent-color: #b77c46;
+}
+
+.add-on-item span {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.add-on-item em {
+  color: var(--text-soft);
+  font-style: normal;
+}
+
 #orderPreview {
   margin: 0.9rem 0;
   border-radius: 12px;
