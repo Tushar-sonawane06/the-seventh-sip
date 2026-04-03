@@ -2,10 +2,7 @@ const cart = new Map();
 const SERVICE_FEE = 7;
 const WHATSAPP_NUMBER = "+917276739369"; // Replace with your WhatsApp number in international format without '+' or dashes
 const ADD_ONS = [
-  { id: "chocolate-crush", name: "Chocolate Crush", price: 10 },
-  { id: "whipped-cream", name: "Whipped Cream", price: 12 },
-  { id: "ice-cream", name: "Ice Cream", price: 15 },
-  { id: "strong-coffee", name: "Strong Coffee", price: 9 },
+  { id: "chocolate-crush", name: "Chocolate Crush", price: 5 },
 ];
 const ADD_ON_EXCLUDED_ITEMS = new Set([
   "strawberry shake",
@@ -240,6 +237,12 @@ const bindMenuButtons = () => {
       const price = Number(card.dataset.price);
 
       if (!name || Number.isNaN(price)) {
+        return;
+      }
+
+      // Add-on customization is available only for drinks in the coffees and shakes grid.
+      if (!card.closest("#coffeeShakesMenu")) {
+        addToCart(name, price);
         return;
       }
 
