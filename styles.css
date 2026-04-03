@@ -183,6 +183,16 @@ body::after {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
 }
 
+.hero-actions a[href="#bites"] {
+  background: #4dc14d;
+  color: #081c15;
+}
+
+.hero-actions a[href="#fries"] {
+  background: #f3de2c;
+  color: #2f2500;
+}
+
 .btn-ghost {
   border-color: rgba(198, 148, 103, 0.45);
   color: var(--text-main);

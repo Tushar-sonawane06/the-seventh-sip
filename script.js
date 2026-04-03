@@ -9,6 +9,7 @@ const ADD_ON_EXCLUDED_ITEMS = new Set([
   "lotus biscoff",
   "mango shake",
   "hot chocolate",
+  "hot coffee",
 ]);
 const addOnLookup = new Map(ADD_ONS.map((addOn) => [addOn.id, addOn]));
 
