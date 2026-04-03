@@ -30,9 +30,9 @@
             </a>
 
             <nav class="main-nav" aria-label="Main Navigation">
-                <a href="#concept">Concept</a>
                 <a href="#menu">Menu</a>
                 <a href="#ordering">Order</a>
+                <a href="#concept">Concept</a>
                 <a href="#campus">Campus Mode</a>
             </nav>
 
@@ -61,7 +61,7 @@
                     </div>
                     <ul class="metric-row" aria-label="Business Metrics">
                         <li>
-                            <strong>500-600m</strong>
+                            <strong>600m - 700m</strong>
                             <span>Campus radius</span>
                         </li>
                         <li>
@@ -70,7 +70,7 @@
                         </li>
                         <li>
                             <strong>Visit Outlet</strong>
-                            <span>Order-first model</span>
+                            <span>View Location</span>
                         </li>
                     </ul>
                 </div>
@@ -90,33 +90,7 @@
             </div>
         </section>
 
-        <!-- <section id="concept" class="section concept">
-            <div class="container">
-                <div class="section-head reveal">
-                    <p class="eyebrow">The Innovation</p>
-                    <h2>Coffee in Campus</h2>
-                    <p>
-                        Seventh Sip blends digital-first ordering with hyper-local service. We do not wait for students
-                        to come to us. We bring coffee directly to campus life.
-                    </p>
-                </div>
-
-                <div class="concept-cards">
-                    <article class="concept-card reveal">
-                        <h3>Digital Ordering</h3>
-                        <p>Fast order flow built for phone screens and short breaks between classes.</p>
-                    </article>
-                    <article class="concept-card reveal">
-                        <h3>Student-First Pricing</h3>
-                        <p>Menu starts at &#8377;7 and scales smartly with your add-ons and cup size.</p>
-                    </article>
-                    <article class="concept-card reveal">
-                        <h3>Campus Micro Delivery</h3>
-                        <p>Focused 500-600 meter radius means speed, freshness, and lower wait time.</p>
-                    </article>
-                </div>
-            </div>
-        </section> -->
+        
 
 
         <section id="menu" class="section menu">
@@ -371,14 +345,14 @@
                 <div class="section-head reveal">
                     <p class="eyebrow">Online First</p>
                     <h2>Place Campus Order</h2>
-                    <p>Build your order now. Share instantly through WhatsApp and get coffee on campus.</p>
+                    <p>Build your order now. Share instantly through WhatsApp and get your order on campus.</p>
                 </div>
 
                 <div class="ordering-layout">
                     <aside class="cart-panel reveal" aria-live="polite">
                         <h3>Live Cart</h3>
                         <ul id="cartItems" class="cart-items">
-                            <li class="cart-empty">No cups yet. Tap Add + in the menu to start.</li>
+                            <li class="cart-empty">Empty Cart!. Tap Add + in the menu to start.</li>
                         </ul>
 
                         <div class="bill-panel">
@@ -402,17 +376,17 @@
                         <input id="studentName" name="studentName" type="text" placeholder="Enter your name" required />
 
                         <label for="collegeName">College / Campus</label>
-                        <input id="collegeName" name="collegeName" type="text" placeholder="College name" required />
+                        <select id="dropSpot" name="dropSpot" required>
+                            <option value="">Select pickup point</option>
+                            <option>DY Patil International University, Akurdi</option>
+                            <option>PCET / PCCOE, Akurdi</option>
+                        </select>
 
                         <label for="dropSpot">Drop Spot</label>
                         <select id="dropSpot" name="dropSpot" required>
                             <option value="">Select pickup point</option>
                             <option>Main Gate</option>
-                            <option>Library Block</option>
-                            <option>Boys Hostel</option>
-                            <option>Girls Hostel</option>
-                            <option>Sports Arena</option>
-                            <option>Auditorium</option>
+
                         </select>
 
                         <label for="phoneNumber">Phone Number</label>
@@ -427,10 +401,45 @@
 
                         <button class="btn btn-solid" type="submit">Generate Quick Order</button>
                         <p class="form-hint">
-                            Demo setup: this creates a ready message and opens WhatsApp. Replace the contact number in
-                            script.js before going live.
+                            After you click "Generate Quick Order", review your order summary and share it with us on
+                            WhatsApp for the fastest delivery.
+
+                        </p>
+                        <p class="form-hint">
+                            Your provided information will only be used to process your order and will not be shared
+                            with any third parties. We respect your privacy and are committed to protecting your
+                            personal data.
                         </p>
                     </form>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="concept" class="section concept">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">The Innovation</p>
+                    <h2>Coffee in Campus</h2>
+                    <p>
+                        Seventh Sip blends digital-first ordering with hyper-local service. We do not wait for students
+                        to come to us. We bring coffee directly to campus life.
+                    </p>
+                </div>
+
+                <div class="concept-cards">
+                    <article class="concept-card reveal">
+                        <h3>Digital Ordering</h3>
+                        <p>Fast order flow built for phone screens and short breaks between classes.</p>
+                    </article>
+                    <article class="concept-card reveal">
+                        <h3>Student-First Pricing</h3>
+                        <p>Menu starts at &#8377;37 and scales smartly with your add-ons.</p>
+                    </article>
+                    <article class="concept-card reveal">
+                        <h3>Campus Micro Delivery</h3>
+                        <p>Focused 600m - 700m radius means speed, freshness, and lower wait time.</p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -446,7 +455,7 @@
                 <div class="campus-layout">
                     <div class="campus-map reveal">
                         <h3>Active Delivery Belt</h3>
-                        <p>We currently serve a 500-600 meter zone around nearby colleges for faster coffee drops.</p>
+                        <p>We currently serve a 600m - 700m zone around nearby colleges for faster order drops.</p>
                         <div class="zone-ring zone-ring-1"></div>
                         <div class="zone-ring zone-ring-2"></div>
                         <div class="zone-center">Seventh Sip Hub</div>
@@ -454,16 +463,16 @@
 
                     <div class="campus-points">
                         <article class="point-card reveal">
-                            <h3>Fast Break Orders</h3>
-                            <p>Order between classes and track your expected drop in minutes.</p>
+                            <h3>Fast Break Drops</h3>
+                            <p>Order between classes and receive your drop in minutes.</p>
                         </article>
                         <article class="point-card reveal">
                             <h3>Group Cup Bundles</h3>
-                            <p>Save more with combo packs for project groups and clubs.</p>
+                            <p>Order packs for project groups and clubs.</p>
                         </article>
                         <article class="point-card reveal">
                             <h3>Creator-Friendly Brand</h3>
-                            <p>Photogenic cup style and flavor names designed for social posting.</p>
+                            <p>Photogenic cup style designed for social posting.</p>
                         </article>
                     </div>
                 </div>
@@ -471,10 +480,11 @@
         </section>
     </main>
 
+
     <footer class="site-footer">
         <div class="container footer-inner">
-            <p><strong>Coffee Seventh Sip</strong> | Brewed for campus culture.</p>
-            <p>Copyright <span id="year"></span> Coffee Seventh Sip. All rights reserved.</p>
+            <p><strong>The Seventh Sip</strong> | Brewed for campus culture | Do Not Disturb</p>
+            <p>Copyright <span id="year"></span> The Seventh Sip. All rights reserved.</p>
         </div>
     </footer>
 
