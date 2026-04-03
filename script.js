@@ -3,6 +3,7 @@ const SERVICE_FEE = 7;
 const WHATSAPP_NUMBER = "+917276739369"; // Replace with your WhatsApp number in international format without '+' or dashes
 const ADD_ONS = [
   { id: "chocolate-crush", name: "Chocolate Crush", price: 5 },
+  { id: "extra-cheese", name: "Extra Cheese", price: 10 },
 ];
 const ADD_ON_EXCLUDED_ITEMS = new Set([
   "strawberry shake",
@@ -45,6 +46,36 @@ const normalizeMenuItemName = (name) =>
     .trim();
 
 const isAddOnExcludedItem = (name) => ADD_ON_EXCLUDED_ITEMS.has(normalizeMenuItemName(name));
+
+const setVisibleAddOns = (allowedAddOnIds) => {
+  if (!addOnForm) {
+    return false;
+  }
+
+  const allowedIds = new Set(allowedAddOnIds);
+  const addOnItems = addOnForm.querySelectorAll(".add-on-item");
+  let visibleCount = 0;
+
+  addOnItems.forEach((item) => {
+    const input = item.querySelector('input[name="addon"]');
+
+    if (!input) {
+      return;
+    }
+
+    const shouldShow = allowedIds.has(input.value);
+    item.style.display = shouldShow ? "" : "none";
+
+    if (!shouldShow) {
+      input.checked = false;
+      return;
+    }
+
+    visibleCount += 1;
+  });
+
+  return visibleCount > 0;
+};
 
 const buildCartKey = (name, addOns) => {
   const addOnIds = addOns.map((addOn) => addOn.id).sort();
@@ -122,15 +153,22 @@ const updateQuantity = (itemKey, direction) => {
   renderCart();
 };
 
-const openAddOnModal = (name, price) => {
-  if (isAddOnExcludedItem(name) || !addOnModal || !addOnForm || !addOnDrinkNameEl) {
+const openAddOnModal = (name, price, allowedAddOnIds) => {
+  if (!addOnModal || !addOnForm || !addOnDrinkNameEl) {
     addToCart(name, price);
+    return;
+  }
+
+  addOnForm.reset();
+
+  if (!setVisibleAddOns(allowedAddOnIds)) {
+    addToCart(name, price);
+    pendingMenuItem = null;
     return;
   }
 
   pendingMenuItem = { name, price };
   addOnDrinkNameEl.textContent = name;
-  addOnForm.reset();
   addOnModal.classList.add("show");
   addOnModal.setAttribute("aria-hidden", "false");
 };
@@ -241,13 +279,27 @@ const bindMenuButtons = () => {
         return;
       }
 
-      // Add-on customization is available only for drinks in the coffees and shakes grid.
-      if (!card.closest("#coffeeShakesMenu")) {
+      if (card.closest("#coffeeShakesMenu")) {
+        if (isAddOnExcludedItem(name)) {
+          addToCart(name, price);
+          return;
+        }
+
+        openAddOnModal(name, price, ["chocolate-crush"]);
+        return;
+      }
+
+      if (card.closest("#bitesMenu")) {
+        openAddOnModal(name, price, ["extra-cheese"]);
+        return;
+      }
+
+      if (card.closest("#friesMenu")) {
         addToCart(name, price);
         return;
       }
 
-      openAddOnModal(name, price);
+      addToCart(name, price);
     });
   });
 };
