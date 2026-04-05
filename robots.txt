@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /images
+Sitemap: https://theseventhsip.online/sitemap.xml
+
