@@ -691,6 +691,108 @@ p {
   font-size: 0.9rem;
 }
 
+.footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.95rem;
+}
+
+.footer-links a {
+  color: #e6be95;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-links a[aria-current="page"] {
+  color: #f1cb9f;
+  border-color: rgba(241, 203, 159, 0.7);
+}
+
+.policy-page-main {
+  padding: 3.6rem 0 5.2rem;
+}
+
+.policy-stack {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.policy-intro,
+.policy-card,
+.contact-card {
+  background: linear-gradient(170deg, rgba(33, 20, 14, 0.92), rgba(20, 12, 9, 0.94));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 45px var(--shadow);
+}
+
+.policy-intro {
+  padding: 2rem;
+}
+
+.policy-intro h1 {
+  margin: 0.75rem 0;
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+}
+
+.policy-meta {
+  margin-top: 0.95rem;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.policy-card {
+  padding: 1.3rem 1.4rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.policy-card h2 {
+  font-size: 1.2rem;
+}
+
+.policy-card ul {
+  margin: 0.15rem 0 0;
+  padding-left: 1.2rem;
+  color: #ddb58e;
+}
+
+.policy-card li+li {
+  margin-top: 0.42rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.contact-card {
+  padding: 1.2rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.contact-card h2 {
+  font-size: 1.14rem;
+}
+
+.contact-card a {
+  color: #f1c794;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
 .floating-cart-bar {
   position: fixed;
   left: 50%;
@@ -918,6 +1020,10 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .zone-ring-1 {
     right: 1.2rem;
   }
@@ -968,8 +1074,32 @@ p {
   .order-form,
   .campus-map,
   .point-card,
+  .policy-intro,
+  .policy-card,
+  .contact-card,
   .modal-content {
     border-radius: 18px;
+  }
+
+  .policy-page-main {
+    padding: 2.6rem 0 4.2rem;
+  }
+
+  .policy-intro {
+    padding: 1.45rem;
+  }
+
+  .policy-card,
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .footer-links {
+    gap: 0.4rem 0.75rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero-copy {
