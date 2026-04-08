@@ -578,6 +578,61 @@ p {
   color: #e6be95;
 }
 
+.location-access-box {
+  border: 1px solid rgba(198, 148, 103, 0.33);
+  border-radius: 12px;
+  background: rgba(12, 7, 5, 0.72);
+  padding: 0.82rem;
+  margin-bottom: 0.45rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.location-access-box label {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #efc79e;
+}
+
+.location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.location-action-btn,
+.location-clear-btn {
+  padding: 0.44rem 0.86rem;
+  font-size: 0.79rem;
+  font-weight: 700;
+}
+
+.location-action-btn:disabled,
+.location-clear-btn:disabled {
+  opacity: 0.68;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.location-status {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.location-status.is-error {
+  color: #f7a895;
+}
+
+.location-status.is-success {
+  color: #bde5b5;
+}
+
+.location-access-box input {
+  margin: 0;
+}
+
 .order-form input,
 .order-form select,
 .order-form textarea {
@@ -1152,5 +1207,14 @@ p {
   .floating-cart-cta {
     padding: 0.56rem 0.88rem;
     font-size: 0.8rem;
+  }
+
+  .location-actions {
+    flex-direction: column;
+  }
+
+  .location-action-btn,
+  .location-clear-btn {
+    width: 100%;
   }
 }

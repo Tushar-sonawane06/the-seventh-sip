@@ -33,6 +33,13 @@ const closeAddOnBtn = document.getElementById("closeAddOnBtn");
 const floatingCartBar = document.getElementById("floatingCartBar");
 const floatingCartCountEl = document.getElementById("floatingCartCount");
 const floatingCartTotalEl = document.getElementById("floatingCartTotal");
+const detectLocationBtn = document.getElementById("detectLocationBtn");
+const clearLocationBtn = document.getElementById("clearLocationBtn");
+const locationStatusEl = document.getElementById("locationStatus");
+const locationAddressEl = document.getElementById("locationAddress");
+const locationCoordsEl = document.getElementById("locationCoords");
+
+const LOCATION_STORAGE_KEY = "seventhSipLocation";
 
 let pendingMenuItem = null;
 
@@ -370,6 +377,204 @@ const bindCartControls = () => {
   });
 };
 
+const setLocationStatus = (message, tone = "default") => {
+  if (!locationStatusEl) {
+    return;
+  }
+
+  locationStatusEl.textContent = message;
+  locationStatusEl.classList.remove("is-error", "is-success");
+
+  if (tone === "error") {
+    locationStatusEl.classList.add("is-error");
+    return;
+  }
+
+  if (tone === "success") {
+    locationStatusEl.classList.add("is-success");
+  }
+};
+
+const persistLocation = ({ address, coords }) => {
+  try {
+    if (!address && !coords) {
+      window.localStorage.removeItem(LOCATION_STORAGE_KEY);
+      return;
+    }
+
+    window.localStorage.setItem(
+      LOCATION_STORAGE_KEY,
+      JSON.stringify({
+        address,
+        coords,
+        updatedAt: Date.now(),
+      })
+    );
+  } catch {
+    // Keep ordering flow running even when storage access is blocked.
+  }
+};
+
+const hydrateSavedLocation = () => {
+  if (!locationAddressEl || !locationCoordsEl) {
+    return;
+  }
+
+  try {
+    const rawValue = window.localStorage.getItem(LOCATION_STORAGE_KEY);
+
+    if (!rawValue) {
+      return;
+    }
+
+    const parsedValue = JSON.parse(rawValue);
+    const address = typeof parsedValue.address === "string" ? parsedValue.address.trim() : "";
+    const coords = typeof parsedValue.coords === "string" ? parsedValue.coords.trim() : "";
+
+    locationAddressEl.value = address;
+    locationCoordsEl.value = coords;
+
+    if (address || coords) {
+      setLocationStatus("Using your saved location from last time.", "success");
+    }
+  } catch {
+    window.localStorage.removeItem(LOCATION_STORAGE_KEY);
+  }
+};
+
+const getGeoErrorMessage = (error) => {
+  switch (error.code) {
+    case 1:
+      return "Location permission denied. You can type your location manually.";
+    case 2:
+      return "Unable to detect your location right now. Please try again.";
+    case 3:
+      return "Location request timed out. Please try again.";
+    default:
+      return "Could not fetch location. Please type your location manually.";
+  }
+};
+
+const reverseGeocode = async (latitude, longitude) => {
+  const endpoint = new URL("https://nominatim.openstreetmap.org/reverse");
+  endpoint.searchParams.set("format", "jsonv2");
+  endpoint.searchParams.set("lat", String(latitude));
+  endpoint.searchParams.set("lon", String(longitude));
+  endpoint.searchParams.set("zoom", "18");
+  endpoint.searchParams.set("addressdetails", "1");
+
+  const response = await fetch(endpoint.toString(), {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Reverse geocode request failed");
+  }
+
+  const payload = await response.json();
+  return typeof payload.display_name === "string" ? payload.display_name : "";
+};
+
+const requestCurrentLocation = () => {
+  if (!locationAddressEl || !locationCoordsEl) {
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    setLocationStatus("This browser does not support live location.", "error");
+    return;
+  }
+
+  if (detectLocationBtn) {
+    detectLocationBtn.disabled = true;
+  }
+
+  setLocationStatus("Requesting location permission...");
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const coords = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+
+      try {
+        setLocationStatus("Location captured. Resolving address...");
+        const detectedAddress = await reverseGeocode(latitude, longitude);
+
+        locationCoordsEl.value = coords;
+        locationAddressEl.value = detectedAddress || `Pinned location (${coords})`;
+        persistLocation({
+          address: locationAddressEl.value.trim(),
+          coords,
+        });
+        setLocationStatus("Location added successfully.", "success");
+      } catch {
+        locationCoordsEl.value = coords;
+        locationAddressEl.value = `Pinned location (${coords})`;
+        persistLocation({
+          address: locationAddressEl.value.trim(),
+          coords,
+        });
+        setLocationStatus("Location captured. Address lookup skipped.", "success");
+      } finally {
+        if (detectLocationBtn) {
+          detectLocationBtn.disabled = false;
+        }
+      }
+    },
+    (error) => {
+      setLocationStatus(getGeoErrorMessage(error), "error");
+
+      if (detectLocationBtn) {
+        detectLocationBtn.disabled = false;
+      }
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 12000,
+      maximumAge: 60000,
+    }
+  );
+};
+
+const initializeLocationAccess = () => {
+  if (!detectLocationBtn || !clearLocationBtn || !locationAddressEl || !locationCoordsEl) {
+    return;
+  }
+
+  hydrateSavedLocation();
+
+  detectLocationBtn.addEventListener("click", () => {
+    requestCurrentLocation();
+  });
+
+  clearLocationBtn.addEventListener("click", () => {
+    locationAddressEl.value = "";
+    locationCoordsEl.value = "";
+    persistLocation({ address: "", coords: "" });
+    setLocationStatus("Location cleared. Allow access or type manually.");
+  });
+
+  locationAddressEl.addEventListener("input", () => {
+    const address = locationAddressEl.value.trim();
+
+    if (locationCoordsEl.value) {
+      locationCoordsEl.value = "";
+    }
+
+    persistLocation({ address, coords: "" });
+
+    if (!address) {
+      setLocationStatus("No location added yet. You can allow access or type manually.");
+      return;
+    }
+
+    setLocationStatus("Manual location saved.", "success");
+  });
+};
+
 const bindOrderSubmit = () => {
   orderForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -386,6 +591,11 @@ const bindOrderSubmit = () => {
     const dropSpot = document.getElementById("dropSpot").value.trim();
     const phoneNumber = document.getElementById("phoneNumber").value.trim();
     const orderNote = document.getElementById("orderNote").value.trim();
+    const locationAddress = locationAddressEl ? locationAddressEl.value.trim() : "";
+    const locationCoords = locationCoordsEl ? locationCoordsEl.value.trim() : "";
+    const mapsPin = locationCoords
+      ? `https://maps.google.com/?q=${encodeURIComponent(locationCoords)}`
+      : "";
 
     const messageLines = [
       "Coffee Seventh Sip - Campus Order",
@@ -393,6 +603,8 @@ const bindOrderSubmit = () => {
       `Name: ${studentName}`,
       `College: ${collegeName}`,
       `Drop Spot: ${dropSpot}`,
+      `Location: ${locationAddress || "Not shared"}`,
+      `GPS Pin: ${mapsPin || "Not shared"}`,
       `Phone: ${phoneNumber}`,
       "",
       "Items:",
@@ -480,6 +692,7 @@ const setFooterYear = () => {
 bindMenuButtons();
 bindAddOnModal();
 bindCartControls();
+initializeLocationAccess();
 bindOrderSubmit();
 bindModalControls();
 setupRevealAnimation();

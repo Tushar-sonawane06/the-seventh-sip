@@ -407,6 +407,23 @@
 
                         </select>
 
+                        <div class="location-access-box" aria-label="Location access">
+                            <label for="locationAddress">Current Location (Optional)</label>
+                            <div class="location-actions">
+                                <button id="detectLocationBtn" class="btn btn-ghost location-action-btn"
+                                    type="button">Use
+                                    My Current Location</button>
+                                <button id="clearLocationBtn" class="btn btn-ghost location-clear-btn"
+                                    type="button">Clear</button>
+                            </div>
+                            <p id="locationStatus" class="location-status" aria-live="polite">No location added yet. You
+                                can
+                                allow access or type manually.</p>
+                            <input id="locationAddress" name="locationAddress" type="text"
+                                placeholder="Hostel, landmark, block, or nearest gate" autocomplete="street-address" />
+                            <input id="locationCoords" name="locationCoords" type="hidden" />
+                        </div>
+
                         <label for="phoneNumber">Phone Number</label>
                         <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="10 digit mobile number"
                             pattern="[0-9]{10}" required />
